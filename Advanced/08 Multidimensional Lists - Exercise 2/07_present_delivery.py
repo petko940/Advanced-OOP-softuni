@@ -18,10 +18,6 @@ for i in range(size_matrix):
     nice_kids += matrix[i].count('V')
 
 
-# "X" - naughty kid.
-# "V" - nice kid.
-# "C" - cookie.
-
 def move(row, col, presents, gifted_kids):  # move
     row += directions[movement][0]
     col += directions[movement][1]
