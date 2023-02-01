@@ -27,7 +27,6 @@ illegal_symbols = re.compile("([^\w+\.*\@{1}]+)")
 
 while True:
     emails = input()
-
     if emails.startswith("End"):
         break
 
