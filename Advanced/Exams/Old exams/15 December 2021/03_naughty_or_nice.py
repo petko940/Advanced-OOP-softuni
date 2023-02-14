@@ -1,36 +1,36 @@
-# def naughty_or_nice_list(*args, **kwargs):
-#     data = {
-#         "Nice": [],
-#         "Naughty": [],
-#         "Not found": []
-#     }
-#     info_kids = [x for x in args[0]]
-#     info_kids_copy = info_kids.copy()
-#     for x in args[1:]:
-#         num, type = [int(x) if x.isdigit() else x for x in x.split("-")]
-#         for i in info_kids:
-#             if num in i:
-#                 data[type].append(i[1])
-#                 info_kids_copy.remove(i)
+# # def naughty_or_nice_list(*args, **kwargs):
+# #     data = {
+# #         "Nice": [],
+# #         "Naughty": [],
+# #         "Not found": []
+# #     }
+# #     info_kids = [x for x in args[0]]
+# #     info_kids_copy = info_kids.copy()
+# #     for x in args[1:]:
+# #         num, type = [int(x) if x.isdigit() else x for x in x.split("-")]
+# #         for i in info_kids:
+# #             if num in i:
+# #                 data[type].append(i[1])
+# #                 info_kids_copy.remove(i)
+# #
+# #     for key, value in kwargs.items():
+# #         for v in data.values():
+# #             if key in v:
+# #                 v.remove(key)
+# #                 data[value].append(key)
+# #                 break
+# #
+# #     for x in info_kids_copy:
+# #         data["Not found"].append(x[1])
+# #
+# #     output = []
+# #     for k,v in data.items():
+# #         if v:
+# #             remove = ", ".join(v)
+# #             output.append(f"{k}: {remove}")
+# #     return '\n'.join(output)
 #
-#     for key, value in kwargs.items():
-#         for v in data.values():
-#             if key in v:
-#                 v.remove(key)
-#                 data[value].append(key)
-#                 break
 #
-#     for x in info_kids_copy:
-#         data["Not found"].append(x[1])
-#
-#     output = []
-#     for k,v in data.items():
-#         if v:
-#             remove = ", ".join(v)
-#             output.append(f"{k}: {remove}")
-#     return '\n'.join(output)
-
-
 def naughty_or_nice_list(*args, **kwargs):
     result = {"Nice": [], "Naughty": [], "Not found": []}
     output, list_with_names = "", args[0]
@@ -57,3 +57,26 @@ def naughty_or_nice_list(*args, **kwargs):
 
     return output
 
+
+# def naughty_or_nice_list(data, *args, **kwargs):
+#     kids = {"Nice": [], "Naughty": [], "Not found": []}
+#     for arg in args:
+#         number, command = [int(x) if x.isdigit() else x for x in arg.split("-")]
+#         for dat in data:
+#             if number in dat:
+#                 kids[command].append(dat[1])
+#                 data.remove(dat)
+#                 continue
+#
+#     for name, value in kwargs.items():
+#         for k, val in kids.items():
+#             if name in val:
+#                 idx = val.index(name)
+#                 moved_kid = kids[k].pop(idx)
+#                 kids[value].append(moved_kid)
+#
+#     for x in data:
+#         kids["Not found"].append(x[1])
+#
+#     print(kids)
+#
