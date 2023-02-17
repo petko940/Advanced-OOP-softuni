@@ -11,18 +11,3 @@ def forecast(*args):
     return '\n'.join(output)
 
 
-print(forecast(
-    ("Sofia", "Sunny"),
-    ("London", "Cloudy"),
-    ("New York", "Sunny")))
-print(forecast(
-    ("Beijing", "Sunny"),
-    ("Hong Kong", "Rainy"),
-    ("Tokyo", "Sunny"),
-    ("Sofia", "Cloudy"),
-    ("Peru", "Sunny"),
-    ("Florence", "Cloudy"),
-    ("Bourgas", "Sunny")))
-print(forecast(
-    ("Tokyo", "Rainy"),
-    ("Sofia", "Rainy")))
