@@ -20,7 +20,7 @@ while textiles and medicaments:
     result = textile + medicament
 
     for key, value in healing_items.items():
-        if result == value[0]:
+        if result == value:
             output[key] += 1
             break
     else:
