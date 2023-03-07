@@ -12,7 +12,7 @@ class Zoo:
         self.animals: List = []
         self.workers: List = []
 
-    def add_animal(self, animal: Animal, price):
+    def add_animal(self, animal, price):
         if self.__animal_capacity == len(self.animals):
             return "Not enough space for animal"
 
@@ -23,7 +23,7 @@ class Zoo:
         self.__budget -= price
         return f"{animal.name} the {animal.__class__.__name__} added to the zoo"
 
-    def hire_worker(self, worker: Worker):
+    def hire_worker(self, worker):
         if self.__workers_capacity == len(self.workers):
             return "Not enough space for worker"
 
