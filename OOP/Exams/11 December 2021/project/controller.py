@@ -54,20 +54,14 @@ class Controller:
         return False
 
     def add_car_to_driver(self, driver_name: str, car_type: str):
-        # 2
         if not self.check_if_exists(driver_name, self.drivers):
             raise Exception(f"Driver {driver_name} could not be found!")
-        # 3
+
         available_car = [c for c in self.cars if c.__class__.__name__ == car_type and c.is_taken == False]
         if not available_car:  # ?????
             raise Exception(f"Car {car_type} could not be found!")
-        # new
-        if car_type not in ("MuscleCar", "SportsCar"):
-            raise Exception(f"Car {car_type} could not be found!")
 
-        # 5
         can_take_car = [c for c in available_car]
-        # if available_car[-1]:
 
         new_model = can_take_car[-1]  # object
         for driver in self.drivers:
@@ -78,7 +72,6 @@ class Controller:
                     new_model.is_taken = True
                     driver.car = new_model
                     return f"Driver {driver.name} changed his car from {old_model.model} to {new_model.model}."
-                # 6
                 else:
                     driver.car = new_model
                     new_model.is_taken = True
