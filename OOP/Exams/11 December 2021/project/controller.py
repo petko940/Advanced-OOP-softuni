@@ -57,7 +57,7 @@ class Controller:
         if not self.check_if_exists(driver_name, self.drivers):
             raise Exception(f"Driver {driver_name} could not be found!")
 
-        available_car = [c for c in self.cars if c.__class__.__name__ == car_type and c.is_taken == False]
+        available_car = [c for c in self.cars if c.__class__.__name__ == car_type and not c.is_taken]
         if not available_car:  # ?????
             raise Exception(f"Car {car_type} could not be found!")
 
