@@ -50,7 +50,6 @@ class IContent(ABC):
 class MyContent(IContent):
     def __init__(self, content_type):
         self.content_type = content_type
-        self.__content = None
 
     def format(self):
         return ''.join(['<myML>', self.content_type, '</myML>'])
