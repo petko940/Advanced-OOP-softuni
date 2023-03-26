@@ -42,13 +42,14 @@ class ConcertTrackerApp:
         return f"{name} was created."
 
     def create_concert(self, genre: str, audience: int, ticket_price: float, expenses: float, place: str):
-        concert = [c for c in self.concerts if c.place == place]
-        if concert:
-            raise Exception(f"{place} is already registered for {genre} concert!")
+        try:
+            concert = [c for c in self.concerts if c.place == place][0]
+            raise Exception(f"{concert.place} is already registered for {concert.genre} concert!")
 
-        new_concert = Concert(genre, audience, ticket_price, expenses, place)
-        self.concerts.append(new_concert)
-        return f"{genre} concert in {place} was added."
+        except IndexError:
+            new_concert = Concert(genre, audience, ticket_price, expenses, place)
+            self.concerts.append(new_concert)
+            return f"{genre} concert in {place} was added."
 
     def add_musician_to_band(self, musician_name: str, band_name: str):
         musician = [m for m in self.musicians if m.name == musician_name]
