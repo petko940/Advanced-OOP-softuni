@@ -1,3 +1,5 @@
+from typing import List
+
 from project.band import Band
 from project.band_members.drummer import Drummer
 from project.band_members.guitarist import Guitarist
@@ -8,9 +10,9 @@ from project.concert import Concert
 
 class ConcertTrackerApp:
     def __init__(self):
-        self.bands: list[Band] = []
-        self.musicians: list[Musician] = []
-        self.concerts: list[Concert] = []
+        self.bands: List[Band] = []
+        self.musicians: List[Musician] = []
+        self.concerts: List[Concert] = []
 
     @property
     def valid_musician_types(self):
