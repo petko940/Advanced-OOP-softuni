@@ -6,7 +6,7 @@ class User:
         self.username = username
         self.age = age
         self.movies_liked: List = []
-        self.movies_owned: List[object] = []
+        self.movies_owned: List = []
 
     @property
     def username(self):
@@ -14,9 +14,8 @@ class User:
 
     @username.setter
     def username(self, value):
-        if not value:
+        if value == '':
             raise ValueError("Invalid username!")
-
         self.__username = value
 
     @property
@@ -30,19 +29,10 @@ class User:
         self.__age = value
 
     def __str__(self):
-        liked_movies = []
-        if self.movies_liked:
-            for movie in self.movies_liked:
-                liked_movies.append(movie.details())
-        else:
-            liked_movies = ['No movies liked.']
-
-        owned_movies = []
-        if self.movies_owned:
-            for movie in self.movies_owned:
-                owned_movies.append(movie.details())
-        else:
-            owned_movies = ["No movies owned."]
+        liked_movies = ["\n".join([movie.details() for movie in self.movies_liked])
+                        if self.movies_liked else "No movies liked."]
+        owned_movies = ["\n".join([movie.details() for movie in self.movies_owned])
+                        if self.movies_owned else "No movies owned."]
 
         result = [f"Username: {self.username}, Age: {self.age}", "Liked movies:",
                   '\n'.join(x for x in liked_movies),

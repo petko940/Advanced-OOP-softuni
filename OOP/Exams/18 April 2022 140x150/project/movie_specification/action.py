@@ -12,7 +12,7 @@ class Action(Movie):
     @age_restriction.setter
     def age_restriction(self, value):
         if value < 12:
-            raise ValueError( "Action movies must be restricted for audience under 12 years!")
+            raise ValueError("Action movies must be restricted for audience under 12 years!")
 
         self.__age_restriction = value
 
