@@ -25,7 +25,7 @@ class MovieApp:
         except IndexError:
             raise Exception("This user does not exist!")
 
-        if movie.owner != user:
+        if movie.owner.username != user.username:
             raise Exception(f"{user.username} is not the owner of the movie {movie.title}!")
 
         if movie in self.movies_collection:
