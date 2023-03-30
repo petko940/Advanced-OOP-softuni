@@ -46,8 +46,8 @@ class ChristmasPastryShopApp:
 
     def reserve_booth(self, number_of_people: int):
         try:
-            booth = [b for b in self.booths if b.capacity >= number_of_people and not b.is_reserved][0]
-        except IndexError:
+            booth = next(b for b in self.booths if b.capacity >= number_of_people and not b.is_reserved)
+        except StopIteration:
             raise Exception(f"No available booth for {number_of_people} people!")
 
         booth.reserve(number_of_people)
