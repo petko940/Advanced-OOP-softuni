@@ -5,7 +5,7 @@ class Horse(ABC):
     def __init__(self, name: str, speed: int):
         self.name = name
         self.speed = speed
-        self.is_taken: bool = False
+        self.is_taken = False
 
     @property
     def name(self):
@@ -18,6 +18,7 @@ class Horse(ABC):
         self.__name = value
 
     @property
+    @abstractmethod
     def speed(self):
         pass
 
