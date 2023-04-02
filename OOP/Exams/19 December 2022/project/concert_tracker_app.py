@@ -24,109 +24,103 @@ class ConcertTrackerApp:
         if musician_type not in self.valid_musician_types:
             raise ValueError("Invalid musician type!")
 
-        musician = [m for m in self.musicians if m.name == name]
-        if musician:
-            raise Exception(f"{name} is already a musician!")
+        try:
+            next(x for x in self.musicians if x.name == name)
+        except StopIteration:
+            new_musician = self.valid_musician_types[musician_type](name, age)
+            self.musicians.append(new_musician)
+            return f"{name} is now a {musician_type}."
 
-        new_musician = self.valid_musician_types[musician_type](name, age)
-        self.musicians.append(new_musician)
-        return f"{name} is now a {musician_type}."
+        raise Exception(f"{name} is already a musician!")
 
     def create_band(self, name: str):
-        band = [b for b in self.bands if b.name == name]
-        if band:
-            raise Exception(f"{name} band is already created!")
+        try:
+            next(x for x in self.bands if x.name == name)
+        except StopIteration:
+            new_band = Band(name)
+            self.bands.append(new_band)
+            return f"{name} was created."
 
-        new_band = Band(name)
-        self.bands.append(new_band)
-        return f"{name} was created."
+        raise Exception(f"{name} band is already created!")
 
     def create_concert(self, genre: str, audience: int, ticket_price: float, expenses: float, place: str):
         try:
-            concert = [c for c in self.concerts if c.place == place][0]
+            concert = next(x for x in self.concerts if x.place == place)
             raise Exception(f"{concert.place} is already registered for {concert.genre} concert!")
 
-        except IndexError:
+        except StopIteration:
             new_concert = Concert(genre, audience, ticket_price, expenses, place)
             self.concerts.append(new_concert)
             return f"{genre} concert in {place} was added."
 
     def add_musician_to_band(self, musician_name: str, band_name: str):
-        musician = [m for m in self.musicians if m.name == musician_name]
-        if not musician:
+        try:
+            musician = [x for x in self.musicians if x.name == musician_name][0]
+        except IndexError:
             raise Exception(f"{musician_name} isn't a musician!")
 
         try:
-            band = [b for b in self.bands if b.name == band_name][0]
-        except IndexError:
+            band = next(x for x in self.bands if x.name == band_name)
+        except StopIteration:
             raise Exception(f"{band_name} isn't a band!")
 
-        band.members.append(musician[0])
+        band.members.append(musician)
         return f"{musician_name} was added to {band_name}."
 
     def remove_musician_from_band(self, musician_name: str, band_name: str):
         try:
-            band = [b for b in self.bands if b.name == band_name][0]
-        except IndexError:
+            band = next(x for x in self.bands if x.name == band_name)
+        except StopIteration:
             raise Exception(f"{band_name} isn't a band!")
 
-        members = [m.name for m in band.members]
-        if musician_name not in members:
+        for x in band.members:
+            if x.name == musician_name:
+                musician = x
+                break
+        else:
             raise Exception(f"{musician_name} isn't a member of {band_name}!")
 
-        musician = [x for x in band.members if x.name == musician_name][0]
         band.members.remove(musician)
         return f"{musician_name} was removed from {band_name}."
 
-    @property
-    def singer_types(self):
-        return ["sing high pitch notes",
-                "sing low pitch notes"]
-
     def start_concert(self, concert_place: str, band_name: str):
-        band = [b for b in self.bands if b.name == band_name][0]
-
-        singers = [s for s in band.members if s.__class__.__name__ == "Singer"]
-        drummers = [s for s in band.members if s.__class__.__name__ == "Drummer"]
-        guitarists = [s for s in band.members if s.__class__.__name__ == "Guitarist"]
-        if not singers or not drummers or not guitarists:
+        members = set([x.__class__.__name__ for x in self.musicians])
+        if len(members) < 3:
             raise Exception(f"{band_name} can't start the concert because it doesn't have enough members!")
 
-        concert = [c for c in self.concerts if c.place == concert_place][0]
-        fail = False
-        singer_type, drummer_types, guitarist_type = [], [], []
-        for s in singers:
-            singer_type.extend(s.skills)
+        concert = next(x for x in self.concerts if x.place == concert_place)
+        band = [x for x in self.bands if x.name == band_name][0]
+
+        drummers = [x for x in band.members if x.__class__.__name__ == "Drummer"]
+        singer = [x for x in band.members if x.__class__.__name__ == "Singer"]
+        guitarist = [x for x in band.members if x.__class__.__name__ == "Guitarist"]
+
+        drummer_type = []
         for d in drummers:
-            drummer_types.extend(d.skills)
-        for g in guitarists:
+            drummer_type.extend(d.skills)
+        singer_type = []
+        for s in singer:
+            singer_type.extend(s.skills)
+        guitarist_type = []
+        for g in guitarist:
             guitarist_type.extend(g.skills)
 
-        if concert.genre == "Rock":
-            if "play the drums with drumsticks" not in drummer_types:
+        fail = False
+        if concert.genre == 'Rock':
+            if "play the drums with drumsticks" not in drummer_type \
+                    or "sing high pitch notes" not in singer_type \
+                    or 'play rock' not in guitarist_type:
                 fail = True
-            if "sing high pitch notes" not in singer_type:
-                fail = True
-            if "play rock" not in guitarist_type:
-                fail = True
-
         elif concert.genre == "Metal":
-            if "play the drums with drumsticks" not in drummer_types:
+            if 'play the drums with drumsticks' not in drummer_type \
+                    or "sing low pitch notes" not in singer_type \
+                    or 'play metal' not in guitarist_type:
                 fail = True
-            if "sing low pitch notes" not in singer_type:
-                fail = True
-            if "play metal" not in guitarist_type:
-                fail = True
-
-        elif concert.genre == "Jazz":
-            if "play the drums with drum brushes" not in drummer_types:
-                fail = True
-            a = ["sing high pitch notes", "sing low pitch notes"]
-            if a[0] not in singer_type:
-                fail = True
-            if a[1] not in singer_type:
-                fail = True
-            if "play jazz" not in guitarist_type:
+        elif concert.genre == 'Jazz':
+            if "play the drums with drum brushes" not in drummer_type \
+                    or "sing high pitch notes" not in singer_type \
+                    or "sing low pitch notes" not in singer_type \
+                    or 'play jazz' not in guitarist_type:
                 fail = True
 
         if fail:

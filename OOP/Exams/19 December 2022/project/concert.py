@@ -33,7 +33,7 @@ class Concert:
     @ticket_price.setter
     def ticket_price(self, value):
         if value < 1:
-            raise ValueError("Ticket price must be at least 1.00$!")
+            raise ValueError(f"Ticket price must be at least 1.00$!")
         self.__ticket_price = value
 
     @property
@@ -51,8 +51,8 @@ class Concert:
         return self.__place
 
     @place.setter
-    def place(self, value):
-        if len(value) < 2 or value.isspace():
+    def place(self, value: str):
+        if len(value.strip()) < 2:
             raise ValueError("Place must contain at least 2 chars. It cannot be empty!")
         self.__place = value
 

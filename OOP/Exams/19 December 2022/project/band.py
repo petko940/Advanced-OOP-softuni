@@ -1,10 +1,12 @@
+from typing import List
+
 from project.band_members.musician import Musician
 
 
 class Band:
     def __init__(self, name: str):
         self.name = name
-        self.members: list[Musician] = []
+        self.members: List[Musician] = []
 
     @property
     def name(self):
