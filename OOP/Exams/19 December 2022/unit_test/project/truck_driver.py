@@ -26,7 +26,8 @@ class TruckDriver:
 
         self.available_cargos[cargo_location] = cargo_miles
 
-        return f"Cargo for {cargo_miles} to {cargo_location} was added as an offer."
+        return \
+    f"Cargo for {cargo_miles} to {cargo_location} was added as an offer."
 
     def drive_best_cargo_offer(self):
         try:
@@ -66,3 +67,4 @@ class TruckDriver:
 
     def __repr__(self):
         return f"{self.name} has {self.miles} miles behind his back."
+
