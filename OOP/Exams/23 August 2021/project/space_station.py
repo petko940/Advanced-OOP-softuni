@@ -95,6 +95,7 @@ class SpaceStation:
 
         return "\n".join(output)
 
+
 # s = SpaceStation()
 # print(s.add_astronaut("Biologist", "Ime"))
 # # print(s.add_planet("ime", "asd, 123, 456"))
