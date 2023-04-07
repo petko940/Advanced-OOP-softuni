@@ -1,9 +1,11 @@
+from typing import List
+
 from project.product import Product
 
 
 class ProductRepository:
     def __init__(self):
-        self.products: [object] = []
+        self.products: List[Product] = []
 
     def add(self, product: Product):
         self.products.append(product)
@@ -11,7 +13,7 @@ class ProductRepository:
     def find(self, product_name: str):
         for product in self.products:
             if product.name == product_name:
-                return product_name
+                return product
 
     def remove(self, product_name):
         obj = self.find(product_name)
