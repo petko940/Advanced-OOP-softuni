@@ -57,4 +57,5 @@ else:
 
     if passage:
         print(f"Amount of fish caught: {passage} tons.")
+
     [print(*x, sep="") for x in matrix]
